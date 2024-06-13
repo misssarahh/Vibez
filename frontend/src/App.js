@@ -1,10 +1,15 @@
+// src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Navbar, Nav } from 'react-bootstrap';
 import Artists from './components/Artists';
 import AddArtist from './components/AddArtist';
+import mockData from './mockData';  // Importera mockData
 
 function App() {
+    // Eventuellt kan vi använda mockData här för utveckling eller tester
+    console.log(mockData);
+
     return (
         <Router>
             <Navbar bg="dark" variant="dark">
@@ -23,4 +28,3 @@ function App() {
 }
 
 export default App;
-

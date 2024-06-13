@@ -1,18 +1,16 @@
+// src/components/Artists.js
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import mockArtists from '../mockData';
 
 const Artists = () => {
     const [artists, setArtists] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:3002/api/artists')
-            .then(response => {
-                setArtists(response.data);
-            })
-            .catch(error => {
-                console.error('There was an error fetching the artists!', error);
-            });
+        // Byt ut API-anropet med mockdata för utveckling/test
+        setArtists(mockArtists);
     }, []);
 
     return (
