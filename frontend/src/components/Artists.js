@@ -1,9 +1,8 @@
 // src/components/Artists.js
-
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import mockArtists from '../mockData';
+import './Artists.css'; // Se till att skapa eller uppdatera denna CSS-fil
 
 const Artists = () => {
     const [artists, setArtists] = useState([]);
@@ -16,13 +15,16 @@ const Artists = () => {
     return (
         <div>
             <h1>Artists</h1>
-            <ul>
+            <div className="artist-list">
                 {artists.map(artist => (
-                    <li key={artist.id}>
-                        <Link to={`/albums/${artist.id}`}>{artist.name}</Link>
-                    </li>
+                    <div key={artist.id} className="artist-card">
+                        <img src={artist.image} alt={artist.name} />
+                        <h2>{artist.name}</h2>
+                        <p>{artist.description}</p>
+                        <Link to={`/albums/${artist.id}`}>View Albums</Link>
+                    </div>
                 ))}
-            </ul>
+            </div>
         </div>
     );
 };

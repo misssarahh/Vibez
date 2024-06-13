@@ -1,0 +1,40 @@
+/* src/components/Artists.css */
+.artist-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.artist-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 200px;
+    text-align: left;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+    .artist-card img {
+        max-width: 100%;
+        border-radius: 8px;
+    }
+
+    .artist-card h2 {
+        font-size: 1.5em;
+        margin: 10px 0;
+    }
+
+    .artist-card p {
+        font-size: 1em;
+        margin: 10px 0;
+    }
+
+    .artist-card a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+        .artist-card a:hover {
+            text-decoration: underline;
+        }

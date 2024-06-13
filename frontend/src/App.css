@@ -1,0 +1,24 @@
+/* src/App.css */
+.App {
+    text-align: center;
+}
+
+.artist-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.artist-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 200px;
+    text-align: left;
+}
+
+    .artist-card img {
+        max-width: 100%;
+        border-radius: 8px;
+    }

@@ -1,28 +1,22 @@
+// src/ArtistList.js
+import React from 'react';
+import mockArtists from './mockData';
 
-import React, { useState, useEffect } from 'react';
-import { mockArtists } from '../mockData'; // Importera mockade data
-
-function ArtistList() {
-    const [artists, setArtists] = useState([]);
-
-    useEffect(() => {
-        // Använd mockade data istället för att göra ett API-anrop
-        setArtists(mockArtists);
-    }, []);
-
+const ArtistList = () => {
     return (
         <div>
             <h1>Artists</h1>
-            <ul>
-                {artists.map(artist => (
-                    <li key={artist.id}>
+            <div className="artist-list">
+                {mockArtists.map(artist => (
+                    <div key={artist.id} className="artist-card">
+                        <img src={artist.image} alt={artist.name} />
                         <h2>{artist.name}</h2>
                         <p>{artist.description}</p>
-                    </li>
+                    </div>
                 ))}
-            </ul>
+            </div>
         </div>
     );
-}
+};
 
 export default ArtistList;
