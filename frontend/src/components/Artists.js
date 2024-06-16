@@ -1,28 +1,28 @@
-// src/components/Artists.js
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import mockArtists from '../mockData';
+import axios from 'axios';
+import './Artists.css';
 
 const Artists = () => {
     const [artists, setArtists] = useState([]);
 
     useEffect(() => {
-        setArtists(mockArtists);
+        axios.get('http://localhost:3002/artists')
+            .then(response => {
+                setArtists(response.data);
+            })
+            .catch(error => {
+                console.error('There was an error fetching the artists!', error);
+            });
     }, []);
 
     return (
-        <div>
-            <h1>Artists</h1>
-            <ul>
-                {artists.map(artist => (
-                    <li key={artist.id}>
-                        <img src={artist.image} alt={artist.name} />
-                        <h2>{artist.name}</h2>
-                        <p>{artist.description}</p>
-                        <Link to={`/albums/${artist.id}`}>Show Albums</Link>
-                    </li>
-                ))}
-            </ul>
+        <div className="artist-list">
+            {artists.map(artist => (
+                <div key={artist.id} className="artist-card">
+                    <img src={artist.image} alt={artist.name} />
+                    <h2>{artist.name}</h2>
+                </div>
+            ))}
         </div>
     );
 };

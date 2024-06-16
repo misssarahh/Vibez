@@ -1,3 +1,5 @@
+/* src/components/Artists.css */
+
 .artist-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -15,8 +17,7 @@
 
     .artist-card img {
         width: 100%;
-        height: auto;
-        max-height: 200px; /* Justera höjden efter behov */
+        max-height: 200px;
         object-fit: cover;
         border-radius: 8px;
     }
@@ -25,10 +26,4 @@
         margin-top: 10px;
         font-size: 1.5rem;
         color: #333;
-    }
-
-    .artist-card p {
-        margin-top: 8px;
-        font-size: 1rem;
-        color: #666;
     }

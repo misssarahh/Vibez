@@ -1,79 +1,49 @@
+// backend/index.js
 const express = require('express');
+const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const { Sequelize, DataTypes } = require('sequelize');
+
 const app = express();
-const PORT = 3002; // Ändra portnumret här
+const port = 3002;
 
-// Middleware
-app.use(bodyParser.json());
 app.use(cors());
+app.use(bodyParser.json());
 
-// MySQL-databas och Sequelize-konfiguration
-const sequelize = new Sequelize('vibez', 'root', 'Sarahhashem98', {
+const connection = mysql.createConnection({
     host: 'localhost',
-    dialect: 'mysql'
+    user: 'root',
+    password: 'Sarahhashem98',
+    database: 'vibez'
 });
 
-// Definiera modeller
-const Artist = sequelize.define('Artist', {
-    name: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    description: {
-        type: DataTypes.TEXT
+connection.connect(err => {
+    if (err) {
+        console.error('Error connecting to the database:', err);
+        return;
     }
+    console.log('Connected to the MySQL database.');
 });
 
-const Album = sequelize.define('Album', {
-    title: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    year: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    }
+app.get('/artists', (req, res) => {
+    connection.query('SELECT * FROM artists', (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: err });
+        }
+        res.json(results);
+    });
 });
 
-const Track = sequelize.define('Track', {
-    title: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    order: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    }
+app.post('/artists', (req, res) => {
+    const { name, image } = req.body;
+    connection.query('INSERT INTO artists (name, image) VALUES (?, ?)', [name, image], (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: err });
+        }
+        res.json({ id: results.insertId, name, image });
+    });
 });
 
-// Skapa relationer
-Artist.hasMany(Album);
-Album.belongsTo(Artist);
-Album.hasMany(Track);
-Track.belongsTo(Album);
-
-// Synkronisera databasen och skapa tabeller
-sequelize.sync().then(() => {
-    console.log('Database & tables created!');
-});
-
-// Rutter
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
-
-// POST endpoint för att skapa ett album
-app.post('/albums', async (req, res) => {
-    try {
-        const album = await Album.create(req.body);
-        res.json(album);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
-
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
 });
